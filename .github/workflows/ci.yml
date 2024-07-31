@@ -17,13 +17,15 @@ jobs:
                 include:
                     - os: macos-14
                     python-version: "3.9"
-        runs-on: ${{matrix python-version}}
+        runs-on: ${{matrix.python-version}}
         steps:
             - uses: actions/checkout@v4
             - name: install python
             - uses: actions/setup-python@v5
              with: 
                 python-version: "3.11"
+            - if: runner.os == 'Linux'
+               
             - run: python -m pip install .[test]
             - name: Run tests
             -run: python -m pytest
